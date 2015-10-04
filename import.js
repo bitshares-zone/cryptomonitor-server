@@ -1,7 +1,8 @@
-var MongoClient = require('mongodb').MongoClient
+var MongoClient = require('mongodb').MongoClient,
 	http = require('http');
+	db_ip = process.env.DB_IP || 'localhost';
 
-MongoClient.connect('mongodb://localhost/cryptomonitor', function(err, db) {
+MongoClient.connect('mongodb://' + db_ip + '/cryptomonitor', function(err, db) {
 	db.collection("cryptsy_doge_btc", function(err, col) {
 		if(err) throw err;
 

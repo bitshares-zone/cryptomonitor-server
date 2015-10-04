@@ -2,6 +2,7 @@ var clc = require('cli-color'),
 	Fetcher = require('./fetcher')
 	MongoClient = require('mongodb').MongoClient,
 	io = require('socket.io');
+	db_ip = process.env.DB_IP || 'localhost';
 
 var markets = {
 	poloniex: require('./fetchers/poloniex')
@@ -28,7 +29,7 @@ var fetchers = {
 
 var clients = {};
 
-MongoClient.connect('mongodb://localhost/cryptomonitor', function(err, db) {
+MongoClient.connect('mongodb://'+ db_ip + '/cryptomonitor', function(err, db) {
 	if(err) throw err;
 	console.log(clc.cyan("Connected to database"));
 
