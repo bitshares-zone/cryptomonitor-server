@@ -14,18 +14,23 @@ var Poloniex = function(base, alt, collection) {
 	this.setCollection(collection);
 
 	this.lastTrade = false;
+	this.lastDate = false;
 
 	this.ticker = function(callback) {
-		client.trades(this.getAlt() + "_" + this.getBase(), function(trades) {
+		if (!this.lastDate) {
+			this.lastDate = Math.round(this.getLastId() / 1000);
+		}
+
+		client.trades(this.getAlt() + "_" + this.getBase(), this.lastDate,  function(trades) {
 			this.parseTrades(trades);
 
 			this.emit('tick');
 			callback();
 		}.bind(this));
-		client.orderbook(this.getAlt() + "_" + this.getBase(), function(orders) {
-			this.parseOrders(orders.bids, "buy");
-			this.parseOrders(orders.asks, "sell");
-		}.bind(this));
+		// client.orderbook(this.getAlt() + "_" + this.getBase(), function(orders) {
+		// 	this.parseOrders(orders.bids, "buy");
+		// 	this.parseOrders(orders.asks, "sell");
+		// }.bind(this));
 	}
 
 	this.parseTrades = function(trades) {
@@ -47,6 +52,7 @@ var Poloniex = function(base, alt, collection) {
 
 			 		this.setLastId(id);
 			 		this.lastTrade = trade;
+			 		this.lastDate = (id / 1000);
 
 					this.newTrade({
 						id: id,
