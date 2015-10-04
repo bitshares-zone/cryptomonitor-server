@@ -4,49 +4,27 @@ var clc = require('cli-color'),
 	io = require('socket.io');
 
 var markets = {
-	cryptsy: require('./fetchers/cryptsy'),
-	mintpal: require('./fetchers/mintpal'),
+	poloniex: require('./fetchers/poloniex')
 
+	// cryptsy: require('./fetchers/cryptsy'),
+	// mintpal: require('./fetchers/mintpal'),
 	// vircurex: require('./fetchers/vircurex'),
 	// bter: require('./fetchers/bter'),
 	// coinedup: require('./fetchers/coinedup'),
 	// anxhk: require('./fetchers/anxhk'),
 	// kraken: require('./fetchers/kraken'),
-	// poloniex: require('./fetchers/poloniex'),
-
-	//coinex: require('./fetchers/coinex'),
-	//coinse: require('./fetchers/coinse'),
-}
+	// coinex: require('./fetchers/coinex'),
+	// coinse: require('./fetchers/coinse'),
+};
 
 var fetchers = {
-	// White Coin
-	cryptsy_wc_btc: {
-		fetcher: markets.cryptsy,
-		name: "Cryptsy",
-		base: "WC",
-		alt: "BTC"
-	},
-	mintpal_wc_btc: {
-		fetcher: markets.mintpal,
-		name: "Mintpal",
-		base: "WC",
-		alt: "BTC"
-	},
-
-	// Black Coin
-	cryptsy_bc_btc: {
-		fetcher: markets.cryptsy,
-		name: "Cryptsy",
-		base: "BC",
-		alt: "BTC"
-	},
-	mintpal_bc_btc: {
-		fetcher: markets.mintpal,
-		name: "Mintpal",
-		base: "BC",
-		alt: "BTC"
-	},
-}
+    poloniex_bts_btc: {
+        fetcher: markets.poloniex,
+        name: "Poloniex",
+        base: "BTS",
+        alt: "BTC"
+    }
+};
 
 var clients = {};
 
